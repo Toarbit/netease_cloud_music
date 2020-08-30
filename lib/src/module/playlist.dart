@@ -41,10 +41,10 @@ Handler playlist_hot = (query, cookie) {
 
 // 收藏与取消收藏歌单
 Handler playlist_subscribe = (query, cookie) {
-  query['t'] = (query['t'] == 1 ? 'subscribe' : 'unsubscribe');
+  var action = query['t'] == 'unsubscribe' ? 'unsubscribe' : 'subscribe';
   return request(
       'POST',
-      'https://music.163.com/weapi/playlist/${query['t']}',
+      'https://music.163.com/weapi/playlist/$action',
       {
         'id': query['id'],
       },

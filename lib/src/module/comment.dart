@@ -58,8 +58,8 @@ Handler comment_like = (query, cookies) {
 
 //歌曲评论
 Handler comment_music = (query, cookies) {
-  final data = {'rid': query['id'], 'limit': query['limit'] ?? 20, 'offst': query['offset'] ?? 0};
-  return request('POST', 'https://music.163.com/weapi/v1/resource/comments/R_SO_4_${query['id']}', data,
+  final data = {'rid': query['id'], 'limit': query['limit'] ?? 20, 'offst': query['offset'] ?? 0, 'beforeTime': query['before'] ?? 0};
+  return request('POST', 'https://music.163.com/api/v1/resource/comments/R_SO_4_${query['id']}', data,
       crypto: Crypto.weapi, cookies: cookies);
 };
 

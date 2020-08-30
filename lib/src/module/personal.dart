@@ -29,6 +29,6 @@ Handler personalized_privatecontent = (query, cookie) {
 
 // 推荐歌单
 Handler personalized = (query, cookie) {
-  return request('POST', 'https://music.163.com/weapi/personalized/playlist', {},
+  return request('POST', 'https://music.163.com/weapi/personalized/playlist', query,
       crypto: Crypto.weapi, cookies: cookie);
 };

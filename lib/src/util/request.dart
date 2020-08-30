@@ -33,7 +33,7 @@ String _chooseUserAgent({String ua}) {
   } else if (ua == "pc") {
     index = (r.nextDouble() * 5).floor() + 8;
   } else {
-    index = (r.nextDouble() * (userAgentList.length - 1)).floor();
+    index = (r.nextDouble() * userAgentList.length).floor();
   }
   return userAgentList[index];
 }
@@ -129,6 +129,7 @@ Future<Answer> request(
   List<Cookie> cookies = const [],
   String ua,
   Crypto crypto = Crypto.weapi,
+  String optionUrl
 }) async {
   final headers = _buildHeader(url, ua, method, cookies);
   if (crypto == Crypto.weapi) {
@@ -145,6 +146,8 @@ Future<Answer> request(
     headers['User-Agent'] =
         'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36';
     url = 'https://music.163.com/api/linux/forward';
+  } else if (crypto == Crypto.eapi) {
+    return eapiRequest(url, optionUrl, data);
   }
   return _doRequest(url, headers, data, method).then((response) async {
     var ans = Answer(cookie: response.cookies);
